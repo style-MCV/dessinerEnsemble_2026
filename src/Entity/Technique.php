@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TechniqueRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TechniqueRepository::class)]
 class Technique
@@ -14,15 +15,22 @@ class Technique
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: 180)]
     #[ORM\Column(length: 180)]
     private ?string $titre = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 180)]
     #[ORM\Column(length: 180)]
     private ?string $sousTitre = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 

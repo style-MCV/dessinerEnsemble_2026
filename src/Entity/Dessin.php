@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DessinRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DessinRepository::class)]
 class Dessin
@@ -14,21 +15,31 @@ class Dessin
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: 180)]
     #[ORM\Column(length: 180)]
     private ?string $titre = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50)]
     #[ORM\Column(length: 50)]
     private ?string $auteur = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50)]
     #[ORM\Column(length: 50)]
     private ?string $technique = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $commentaire = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $dateCreation = null;
 
