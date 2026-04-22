@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\DessinRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity(['titre','auteur'])]
 #[ORM\Entity(repositoryClass: DessinRepository::class)]
 class Dessin
 {
@@ -21,19 +23,9 @@ class Dessin
     private ?string $titre = null;
 
     #[Assert\NotBlank]
-    #[Assert\Length(max: 50)]
-    #[ORM\Column(length: 50)]
-    private ?string $auteur = null;
-
-    #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $image = null;
-
-    #[Assert\NotBlank]
-    #[Assert\Length(max: 50)]
-    #[ORM\Column(length: 50)]
-    private ?string $technique = null;
 
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::TEXT)]
@@ -45,6 +37,14 @@ class Dessin
 
     #[ORM\Column]
     private ?bool $estValide = null;
+
+    #[ORM\ManyToOne(inversedBy: 'dessins')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateur $auteur = null;
+
+    #[ORM\ManyToOne(inversedBy: 'dessins')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Technique $technique = null;
 
     public function getId(): ?int
     {
@@ -63,18 +63,6 @@ class Dessin
         return $this;
     }
 
-    public function getAuteur(): ?string
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(string $auteur): static
-    {
-        $this->auteur = $auteur;
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;
@@ -83,18 +71,6 @@ class Dessin
     public function setImage(string $image): static
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    public function getTechnique(): ?string
-    {
-        return $this->technique;
-    }
-
-    public function setTechnique(string $technique): static
-    {
-        $this->technique = $technique;
 
         return $this;
     }
@@ -131,6 +107,30 @@ class Dessin
     public function setEstValide(bool $estValide): static
     {
         $this->estValide = $estValide;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Utilisateur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Utilisateur $auteur): static
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getTechnique(): ?Technique
+    {
+        return $this->technique;
+    }
+
+    public function setTechnique(?Technique $technique): static
+    {
+        $this->technique = $technique;
 
         return $this;
     }

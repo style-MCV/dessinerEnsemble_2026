@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -44,6 +46,17 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?bool $admin = null;
+
+    /**
+     * @var Collection<int, Dessin>
+     */
+    #[ORM\OneToMany(targetEntity: Dessin::class, mappedBy: 'auteur', orphanRemoval: true)]
+    private Collection $dessins;
+
+    public function __construct()
+    {
+        $this->dessins = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -146,6 +159,36 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdmin(?bool $admin): static
     {
         $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Dessin>
+     */
+    public function getDessins(): Collection
+    {
+        return $this->dessins;
+    }
+
+    public function addDessin(Dessin $dessin): static
+    {
+        if (!$this->dessins->contains($dessin)) {
+            $this->dessins->add($dessin);
+            $dessin->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDessin(Dessin $dessin): static
+    {
+        if ($this->dessins->removeElement($dessin)) {
+            // set the owning side to null (unless already changed)
+            if ($dessin->getAuteur() === $this) {
+                $dessin->setAuteur(null);
+            }
+        }
 
         return $this;
     }
