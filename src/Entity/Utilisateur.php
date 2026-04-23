@@ -44,9 +44,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $pseudo = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $admin = null;
-
     /**
      * @var Collection<int, Dessin>
      */
@@ -147,18 +144,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPseudo(string $pseudo): static
     {
         $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    public function isAdmin(): ?bool
-    {
-        return $this->admin;
-    }
-
-    public function setAdmin(?bool $admin): static
-    {
-        $this->admin = $admin;
 
         return $this;
     }
