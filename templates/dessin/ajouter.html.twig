@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Ajouter votre dessin{% endblock %}
+
+
+{% block body %}
+    {# solution pour styliser le formulaire directement dans twig#}
+    {% form_theme dessinForm 'bootstrap_5_layout.html.twig' %}
+
+    {# affiche le formulaire d'ajout de dessin #}
+    <h1>Ajouter votre dessin</h1>
+    {{ form_start(dessinForm) }}
+    {{ form_widget(dessinForm) }}
+
+    {#  <button class="btn btn-primary btn-sm">Ajouter</button>
+    <button class="btn btn-primary btn-sm">Annuler</button>#}
+    {{ form_end(dessinForm) }}
+
+
+{% endblock %}
+
+
+

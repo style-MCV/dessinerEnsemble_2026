@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Créer une technique{% endblock %}
+
+{% block body %}
+    {# affiche le formulaire de création de technique #}
+    <h1>Créer une technique</h1>
+    {{ form_start(techniqueForm) }}
+    {{ form_widget(techniqueForm) }}
+
+
+    {{ form_end(techniqueForm) }}
+    <button class="btn btn-primary btn-sm">Supprimer</button>
+    <button class="btn btn-primary btn-sm">Créer</button>
+
+
+
+{% endblock %}
