@@ -1,20 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TechniqueController!{% endblock %}
+{% block title %}{{ parent() }} | Accueil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% if is_granted('ROLE_ADMIN') %}
+        <button> <a href="{{ path('technique_creer') }}"></a>Créer une technique</button>
+        <button> <a href="{{ path('app_dessin_valider') }}"></a>Valider les dessins</button>
+    {% endif %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/dessinerEnsemble/src/Controller/TechniqueController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/dessinerEnsemble/templates/technique/index.html.twig</code></li>
-    </ul>
-</div>
+    <h1>Consultez les différentes techniques de dessin et partagez vos oeuvres et vos commentaires grâce à la galerie</h1>
+    <h2>Articles sur les techniques</h2>
+
+    {% for technique in techniques %}
+    <div class="card-deck">
+        <div class="d-flex my-5 align-content-center flex-wrap">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ asset('images/')}}{{technique.image}}" class="card-img-top img-fluid" alt="Dessin correspondant à la technique" >
+                <div class="card-body">
+                    <h3 class="card-title">{{ technique.titre }}</h3>
+                    <h4 class="card-subtitle mb-2 text-body-secondary">{{ technique.sousTitre }}</h4>
+                    <p class="card-text">{{ technique.description}}</p>
+                    <a href="#" class="card-link">Détail de la technique</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
 {% endblock %}
+
+
