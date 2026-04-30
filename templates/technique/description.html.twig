@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Description de la technique{% endblock %}
+
+{% block body %}
+
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ asset('images/')}}{{technique.image}}" class="card-img-top img-fluid"
+                         alt="Dessin correspondant à la technique" >
+                    <div class="card-body">
+                        <h3 class="card-title">{{ technique.titre }}</h3>
+                        <h4 class="card-subtitle mb-2 text-body-secondary">{{ technique.sousTitre }}</h4>
+                        <p class="card-text">{{ technique.description}}</p>
+                        <a href="#" class="card-link">lien</a>
+                    </div>
+                </div>
+{% endblock %}
+
+
+

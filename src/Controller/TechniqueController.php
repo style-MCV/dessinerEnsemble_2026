@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class TechniqueController extends AbstractController
 {
@@ -22,7 +23,8 @@ final class TechniqueController extends AbstractController
         ]);
     }
 
-    #[Route("/creer", name: 'technique_creer',methods: ['GET', 'POST'])]
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route("/creer", name: 'technique_creer', methods: ['GET', 'POST'])]
     public function creer(Request $request, EntityManagerInterface $entityManager): Response
     {   //je crée une instance de Technique vide
         $technique = new Technique();
@@ -47,5 +49,17 @@ final class TechniqueController extends AbstractController
         ]);
 
     }
+
+    #[Route("/description{id}", name: 'technique_description', methods: ['GET'])]
+    public function description(int $id, TechniqueRepository $techniqueRepository): Response
+    {
+        //va chercher la description de la technique en bdd
+        $technique = $techniqueRepository->find($id);
+        return $this->render('technique/description.html.twig', [
+            'technique' => $technique,
+        ]);
+    }
+
+
 
 }
