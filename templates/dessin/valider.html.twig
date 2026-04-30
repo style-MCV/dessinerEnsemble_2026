@@ -4,8 +4,6 @@
 
 {% block body %}
 
-
-
     <h1>Liste des dessins</h1>
     <table class="table-sm table-bordered">
         <thead>
@@ -15,18 +13,19 @@
             <th scope="col">Technique</th>
             <th scope="col">Dessin</th>
             <th scope="col">Commentaire</th>
-            <th scope="col" type="checkbox"></th>
+            <th scope="col" >Action</th>
         </tr>
         </thead>
         <tbody>
         {% for dessin in dessins %}
             <tr>
                 <td>{{ dessin.titre }}</td>
-                <td>{{ dessin.pseudo }}</td>
-                <td>{{ dessin.technique }}</td>
+                <td>{{ dessin.auteur.pseudo }}</td>
+                <td>{{ dessin.technique.titre }}</td>
                 <td>{{ dessin.image }}<img src="{{ asset('images/')}}{{dessin.image}}" class=“img-fluid”  alt="Dessin"/></td>
                 <td>{{ dessin.commentaire}}</td>
-
+                <td><button><a href="{{ path('app_dessin_valider_one', {id:dessin.id}) }}">Valider</a></button>
+                    <button><a href="{{ path('app_dessin_refuser_one', {id:dessin.id}) }}">Refuser</a></button></td>
             </tr>
         {% endfor %}
         </tbody>

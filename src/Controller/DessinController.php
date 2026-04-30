@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class DessinController extends AbstractController
 {
@@ -22,7 +23,8 @@ final class DessinController extends AbstractController
         ]);
     }
 
-    #[Route("/valider", name: 'app_dessin_valider')]
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route("/valider", name: 'app_dessin_valider', methods: ['GET'])]
     public function valider(DessinRepository $dessinRepository): Response
     {
         $dessins = $dessinRepository->findAll();
@@ -31,6 +33,27 @@ final class DessinController extends AbstractController
             ]);
     }
 
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route("/valider{id}", name: 'app_dessin_valider_one', methods: ['GET'])]
+    public function validerOne(int $id, DessinRepository $dessinRepository,EntityManagerInterface $entityManager): Response
+    {
+        $dessin = $dessinRepository->find($id);
+        $dessin->setEstValide(true);
+        $entityManager->flush($dessin);
+        return $this->redirectToRoute('app_dessin_valider');
+    }
+
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route("/refuser{id}", name: 'app_dessin_refuser_one', methods: ['GET'])]
+    public function refuserOne(int $id, DessinRepository $dessinRepository, EntityManagerInterface $entityManager): Response
+    {
+        $dessin = $dessinRepository->find($id);
+        $dessin->setEstValide(false);
+        $entityManager->flush($dessin);
+        return $this->redirectToRoute('app_dessin_valider');
+    }
+
+    #[IsGranted("ROLE_USER")]
     #[Route("/ajouter", name: 'app_dessin_ajouter', methods: ['GET', 'POST'])]
     public function ajouter(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +65,9 @@ final class DessinController extends AbstractController
         $dessinForm->handleRequest($request);
         //est-ce que le formulaire est soumis et valide?
         if ($dessinForm->isSubmitted() && $dessinForm->isValid()) {
+            $file = $dessinForm->get('image')->getData();
+            $file->move($this->getParameter('kernel.project_dir').'/public/images', $file->getClientOriginalName());
+            $dessin->setImage($file->getClientOriginalName());
             //on sauvegarde en bdd grâce à l'entitymanager que je passe en paramètres dans function ajouter
             $entityManager->persist($dessin);
             $entityManager->flush();
@@ -54,7 +80,6 @@ final class DessinController extends AbstractController
         return $this->render('dessin/ajouter.html.twig', [
             // je passe le formulaire à twig pour affichage
             'dessinForm' => $dessinForm,
-            //l'autocomplétion me propose: 'dessinForm' => $dessinForm->createView(),
         ]);
     }
 

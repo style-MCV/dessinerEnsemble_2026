@@ -4,7 +4,7 @@
 
 {% block body %}
     {% if is_granted('ROLE_USER') %}
-        <button> <a href="{{ path('app_dessin_ajouter') }}"></a>Ajouter votre dessin</button>
+        <button> <a href="{{ path('app_dessin_ajouter') }}">Ajouter votre dessin</a></button>
     {% endif %}
     <h1>Admirez les oeuvres des autres et partagez les vôtres ainsi que vos commentaires sur leur réalisation grâce à notre galerie et pour cela, connectez-vous!</h1>
 
@@ -18,26 +18,24 @@
         </div>
     </div>
 
-
-    {% for dessin in dessins %}
         <div class="card-deck">
             <div class="d-flex my-5 align-content-center flex-wrap">
+                {% for dessin in dessins %}
                 <div class="card" style="width: 18rem;">
                     <img src="{{ asset('images/')}}{{dessin.image}}" class="card-img-top img-fluid" alt="Dessin correspondant à la technique" >
                     <div class="card-body">
-                        <h2 class="card-title">{#{{ dessin.technique }}#}Technique</h2>
+                        <h2 class="card-title">{{ dessin.technique.titre }}</h2>
                         <h3 class="card-title">{{ dessin.titre }}</h3>
-                        <h4 class="card-subtitle mb-2 text-body-secondary">par {#{{ dessin.auteur }}#}</h4>
+                        <h4 class="card-subtitle mb-2 text-body-secondary">par {{ dessin.auteur.pseudo }}</h4>
                         <p class="card-text">{{ dessin.commentaire}}</p>
                         <p class="card-text"><small class="text-body-secondary">créé le {{ dessin.dateCreation|date("d-m-Y") }}</small></p>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
-    {% endfor %}
-
- {#
-    <style>
+    {#
+     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     </style>
@@ -51,10 +49,5 @@
             <li>Your template at <code>C:/wamp64/www/dessinerEnsemble/templates/dessin/index.html.twig</code></li>
         </ul>
     </div>#}
-
-
-
-
-
 
 {% endblock %}

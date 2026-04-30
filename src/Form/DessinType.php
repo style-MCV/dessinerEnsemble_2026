@@ -27,17 +27,16 @@ class DessinType extends AbstractType
             ->add('dateCreation', null, [
                 'widget' => 'single_text',
             ])
-            ->add('estValide')
+
             ->add('auteur', EntityType::class, [
                 'class' => Utilisateur::class,
-                'choice_label' => 'id',
+                'choice_label' => 'pseudo',
             ])
             ->add('technique', EntityType::class, [
                 'class' => Technique::class,
-                'choice_label' => 'id',
+                'choice_label' => 'titre',
             ])
             ->add('submitBtn', SubmitType::class, ['label' => 'Ajouter'])
-            ->add('deleteBtn', SubmitType::class, ['label' => 'Annuler'])
         ;
     }
 
