@@ -28,7 +28,8 @@ class Dessin
     private ?string $image = null;
 
     #[Assert\NotBlank]
-    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(max: 255)]
+    #[ORM\Column(length: 255)]
     private ?string $commentaire = null;
 
     #[Assert\NotBlank]

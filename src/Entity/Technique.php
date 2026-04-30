@@ -35,6 +35,7 @@ class Technique
     private ?string $image = null;
 
     #[Assert\NotBlank]
+    #[Assert\Length(max: 1000)]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
