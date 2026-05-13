@@ -7,15 +7,14 @@
         <button> <a href="{{ path('technique_creer') }}">Créer une technique</a></button>
         <button> <a href="{{ path('app_dessin_valider') }}">Valider les dessins</a></button>
     {% endif %}
-
-
     <h1>Consultez les différentes techniques de dessin et partagez vos oeuvres et vos commentaires grâce à la galerie</h1>
     <h2>Articles sur les techniques</h2>
     <div class="card-deck">
         <div class="d-flex my-5 align-content-center flex-wrap">
             {% for technique in techniques %}
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('images/')}}{{technique.image}}" class="card-img-top img-fluid" alt="Dessin correspondant à la technique" >
+            <div class="card" >
+                <img src="{{ asset('images/')}}{{technique.image}}" class="card-img-top img-fluid"
+                     alt="Dessin correspondant à la technique" >
                 <div class="card-body">
                     <h3 class="card-title">{{ technique.titre }}</h3>
                     <h4 class="card-subtitle mb-2 text-body-secondary">{{ technique.sousTitre }}</h4>

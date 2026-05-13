@@ -65,6 +65,8 @@ final class DessinController extends AbstractController
         $dessinForm->handleRequest($request);
         //est-ce que le formulaire est soumis et valide?
         if ($dessinForm->isSubmitted() && $dessinForm->isValid()) {
+            //on récupère l'image téléchargée
+            
             $file = $dessinForm->get('image')->getData();
             $file->move($this->getParameter('kernel.project_dir').'/public/images', $file->getClientOriginalName());
             $dessin->setImage($file->getClientOriginalName());

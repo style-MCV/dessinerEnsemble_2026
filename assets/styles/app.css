@@ -5,4 +5,9 @@ body {
 .card
 {
     background-color: #4472C4;
+    width: 30%;
+}
+
+.card_description {
+    width: 50%;
 }

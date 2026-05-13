@@ -34,6 +34,11 @@ final class TechniqueController extends AbstractController
         $techniqueForm->handleRequest($request);
         //est-ce que le formulaire est soumis et valide?
         if ($techniqueForm->isSubmitted() && $techniqueForm->isValid()) {
+            //je récupère l'image téléchargée
+            $file = $techniqueForm->get('image')->getData();
+            $file->move($this->getParameter('kernel.project_dir').'/public/images', $file->getClientOriginalName());
+            $technique->setImage($file->getClientOriginalName());
+
             //on sauvegarde en bdd grâce à l'entitymanager que je passe en paramètres dans function creer
             $entityManager->persist($technique);
             $entityManager->flush();
@@ -45,7 +50,6 @@ final class TechniqueController extends AbstractController
            // je passe le formulaire à twig pour affichage
             //'technique' => $technique,
             'techniqueForm' => $techniqueForm,
-            //'techniqueForm' => $techniqueForm->createView(),
         ]);
 
     }

@@ -4,14 +4,15 @@
 
 {% block body %}
 
-                <div class="card" style="width: 18rem;">
+    <h1>Technique de dessin</h1>
+
+                <div class="card_description" >
                     <img src="{{ asset('images/')}}{{technique.image}}" class="card-img-top img-fluid"
                          alt="Dessin correspondant à la technique" >
                     <div class="card-body">
                         <h3 class="card-title">{{ technique.titre }}</h3>
                         <h4 class="card-subtitle mb-2 text-body-secondary">{{ technique.sousTitre }}</h4>
                         <p class="card-text">{{ technique.description}}</p>
-                        <a href="#" class="card-link">lien</a>
                     </div>
                 </div>
 {% endblock %}

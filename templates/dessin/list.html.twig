@@ -8,7 +8,7 @@
     {% endif %}
     <h1>Admirez les oeuvres des autres et partagez les vôtres ainsi que vos commentaires sur leur réalisation grâce à notre galerie et pour cela, connectez-vous!</h1>
 
-    <div class="card" style="width: 18rem;">
+    <div class="card" >
         <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
             <h2 class="card-title">Technique</h2>
@@ -21,7 +21,7 @@
         <div class="card-deck">
             <div class="d-flex my-5 align-content-center flex-wrap">
                 {% for dessin in dessins %}
-                <div class="card" style="width: 18rem;">
+                <div class="card" >
                     <img src="{{ asset('images/')}}{{dessin.image}}" class="card-img-top img-fluid" alt="Dessin correspondant à la technique" >
                     <div class="card-body">
                         <h2 class="card-title">{{ dessin.technique.titre }}</h2>
