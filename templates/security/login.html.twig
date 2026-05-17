@@ -1,9 +1,15 @@
-{#  pour supprimer la navbar et le footer {% extends 'base.html.twig' %}#}
+{% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Dessiner Ensemble | Connexion{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
-    <form method="post">
+    <form method="post" class="formConnexion">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
@@ -15,32 +21,39 @@
         {% endif %}
 
         <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
-        <label for="username">Email</label>
+        <label for="username" class="col-sm-3 col-form-label labelConnexion">Email</label>
         <input type="email" value="{{ last_username }}" name="_username" id="username" placeholder="pierre.v@gmail.com" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
+        <label for="password" class="col-sm-3 col-form-label labelConnexion">Password</label>
         <input type="password" name="_password" id="password" placeholder="********" class="form-control" autocomplete="current-password" required>
         <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Se connecter
-        </button>
+        <div class="row">
+            <div class="text-center d-flex flex-row justify-content-evenly" >
+                <div class="col-auto my-3">
+                    <button class="btn btn-lg btn-primary" type="submit" id="btnForm">
+                    Se connecter
+                    </button>
+                </div>
+                <div>
         {#
             Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
             See https://symfony.com/doc/current/security/remember_me.html #}
-
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
+                    <div class="checkbox mb-3">
+                        <input type="checkbox" name="_remember_me" id="_remember_me">
+                        <label for="_remember_me">Se souvenir de moi</label>
+                    </div>
+                    <div>
+                        <a href="#">Mot de passe oublié?</a>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <a href="#">Mot de passe oublié?</a>
-            </div>
-
-        <button class="btn btn-lg btn-primary" >
-            <a href="{{ path('app_register') }}">
-            Créer un compte
-            </a>
-        </button>
+        </div>
+        <div class="col-auto my-3">
+            <button class="btn btn-lg btn-primary" >
+                <a href="{{ path('app_register') }}">
+                Créer un compte
+                </a>
+            </button>
+        </div>
     </form>
 {% endblock %}

@@ -1,13 +1,52 @@
 body {
-    background-color: #A8C0E1;
+    background-color: #A9B5E2 /*#A8C0E1*/;
+}
+
+.nav-link {
+    color: black;
+    font-size: calc(1.325rem + .9vw);
 }
 
 .card
 {
-    background-color: #4472C4;
+    background-color: black;
     width: 30%;
+    border: 25px solid black;
+    border-radius: 30px;
+}
+
+.card-title, .card-subtitle, .card-link, .card-text, .card-title-description, .card-subtitle-description {
+    color: #EFBF04;
 }
 
 .card_description {
     width: 50%;
+    background-color: black;
+}
+
+.card-deck {
+    background-color: #4472C4;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 90%;
+    height: auto;
+    border-radius: 30px;
+    margin-left: 5%;
+}
+
+
+.formConnexion {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
+    transform: translateY(-50%);/* tiré de la moitié de sa propre hauteur */
+}
+
+.labelConnexion {
+    white-space: nowrap;
+}
+
+#btnForm {
+    background: black;
 }

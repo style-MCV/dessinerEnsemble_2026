@@ -10,10 +10,12 @@
                     <img src="{{ asset('images/')}}{{technique.image}}" class="card-img-top img-fluid"
                          alt="Dessin correspondant à la technique" >
                     <div class="card-body">
-                        <h3 class="card-title">{{ technique.titre }}</h3>
-                        <h4 class="card-subtitle mb-2 text-body-secondary">{{ technique.sousTitre }}</h4>
-                        <p class="card-text">{{ technique.description}}</p>
+                        <h3 class="card-title-description">{{ technique.titre }}</h3>
+                        <h4 class="card-subtitle-description mb-2">{{ technique.sousTitre }}</h4>
                     </div>
+                </div>
+                <div>
+                    <p class="card-text-description">{{ technique.description}}</p>
                 </div>
 {% endblock %}
 

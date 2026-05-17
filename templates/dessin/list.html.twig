@@ -8,27 +8,17 @@
     {% endif %}
     <h1>Admirez les oeuvres des autres et partagez les vôtres ainsi que vos commentaires sur leur réalisation grâce à notre galerie et pour cela, connectez-vous!</h1>
 
-    <div class="card" >
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h2 class="card-title">Technique</h2>
-            <h3 class="card-subtitle mb-2 text-body-secondary">Sous-titre</h3>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="card-link">Détail de la technique</a>
-        </div>
-    </div>
-
         <div class="card-deck">
-            <div class="d-flex my-5 align-content-center flex-wrap">
+            <div class="d-flex my-5 align-content-center justify-content-evenly flex-wrap">
                 {% for dessin in dessins %}
                 <div class="card" >
                     <img src="{{ asset('images/')}}{{dessin.image}}" class="card-img-top img-fluid" alt="Dessin correspondant à la technique" >
                     <div class="card-body">
                         <h2 class="card-title">{{ dessin.technique.titre }}</h2>
-                        <h3 class="card-title">{{ dessin.titre }}</h3>
-                        <h4 class="card-subtitle mb-2 text-body-secondary">par {{ dessin.auteur.pseudo }}</h4>
+                        <h3 class="card-title mb-2">{{ dessin.titre }}</h3>
+                        <h4 class="card-subtitle mb-2">par {{ dessin.auteur.pseudo }}</h4>
                         <p class="card-text">{{ dessin.commentaire}}</p>
-                        <p class="card-text"><small class="text-body-secondary">créé le {{ dessin.dateCreation|date("d-m-Y") }}</small></p>
+                        <p class="card-text">créé le {{ dessin.dateCreation|date("d-m-Y") }}</p>
                     </div>
                 </div>
                 {% endfor %}
